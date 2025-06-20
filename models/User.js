@@ -1,21 +1,11 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true, // Creates a unique index on email
-  },
+const UserSchema = new mongoose.Schema({
+  name: String,
+  email: { type: String, unique: true },
   age: Number,
 }, {
   timestamps: true,
 });
 
-// Optional: Create the index explicitly (not required if `unique` is used)
-userSchema.index({ email: 1 }, { unique: true });
-
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.models.User || mongoose.model('User', UserSchema);
