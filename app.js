@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/userRoutes');
+const authRoutes = require('./routes/login');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,8 @@ app.use(express.json());
 
 // Routes
 app.use('/users', userRoutes);
+app.use('/auth', authRoutes);
+
 
 // Start server
 app.listen(PORT, () => {
