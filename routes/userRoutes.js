@@ -2,11 +2,20 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
-// GET /users - Return list of users
-router.get('/', async (req, res) => {
+router.get('/email', async (req, res) => {
+  const { email } = req.query;
+
+  if (!email) {
+    return res.status(400).json({ message: 'Email query parameter is required' });
+  }
+
   try {
-    const users = await User.find();
-    res.json(users);
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user);
   } catch (error) {
     res.status(500).json({ message: 'Server error', error });
   }
