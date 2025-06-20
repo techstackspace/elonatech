@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
+
+// GET http://localhost:3000/users/email?email=john@example.com
 router.get('/email', async (req, res) => {
   const { email } = req.query;
 
